@@ -1,5 +1,8 @@
 {
-  "name": "pbie-node",
+  "name": "@mend3/pbie-node",
+  "directories": {
+    "test": "test"
+  },
   "version": "1.0.0",
   "description": "NodeJS library written in typescript and designed for using PowerBI embedded reports.",
   "main": "dist/index.js",
