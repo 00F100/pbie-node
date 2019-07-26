@@ -1,0 +1,61 @@
+{
+  "name": "pbie-node",
+  "version": "1.0.0",
+  "description": "NodeJS library written in typescript and designed for using PowerBI embedded reports.",
+  "main": "dist/index.js",
+  "private": false,
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=11.14.0",
+    "npm": ">=6.7.0"
+  },
+  "scripts": {
+    "prepare": "npm run lint && npm test && npm run build",
+    "lint": "tslint --project .",
+    "build": "rm -rf dist/ && tsc",
+    "watch": "tsc --watch",
+    "test": "jasmine --reporter=jasmine-console-reporter --config=jasmine.json",
+    "clear": "rm -rf node_modules/ dist/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mend3/pbie-node.git"
+  },
+  "keywords": [
+    "PowerBI",
+    "NodeJS",
+    "Typescript",
+    "Embedded Report"
+  ],
+  "author": "Victor Mendonça <victor.mendp3@gmail.com> (https://github.com/mend3)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mend3/pbie-node/issues"
+  },
+  "homepage": "https://github.com/mend3/pbie-node#readme",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/dotenv": "^6.1.1",
+    "@types/jasmine": "^3.3.15",
+    "@types/request": "^2.48.2",
+    "concurrently": "^4.1.1",
+    "coveralls": "^3.0.5",
+    "jasmine": "^3.4.0",
+    "jasmine-console-reporter": "^3.1.0",
+    "jasmine-ts": "^0.3.0",
+    "nodemon": "^1.19.1",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.11.0",
+    "tslint-config-airbnb": "^5.11.1",
+    "typescript": "^3.5.3"
+  },
+  "peerDependencies": {
+    "adal-node": "^0.1.28"
+  },
+  "dependencies": {
+    "adal-node": "^0.1.28",
+    "dotenv": "^8.0.0",
+    "nyc": "^14.1.1",
+    "request": "^2.88.0"
+  }
+}
