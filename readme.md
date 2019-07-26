@@ -6,7 +6,7 @@ Inspired on [Power BI API Code Samples](https://github.com/microsoft/PowerBI-Dev
 
 ## Installation
 ```sh
->> npm i -s pbie-node
+>> npm i -s @mend3/pbie-node
 ```
 
 ## Testing
