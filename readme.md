@@ -4,32 +4,47 @@ NodeJS library written in typescript and designed for using [PowerBI](https://po
 
 Inspired on [Power BI API Code Samples](https://github.com/microsoft/PowerBI-Developer-Samples)
 
-## Running Locally
-
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku Toolbelt](https://toolbelt.heroku.com/) installed.
-
+## Installation
 ```sh
-git clone git@github.com:heroku/node-js-sample.git # or clone your own fork
-cd node-js-sample
-npm install
-npm start
+>> npm i -s pbie-node
 ```
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
-
-## Deploying to Heroku
-
-```
-heroku create
-git push heroku master
-heroku open
+## Testing
+```sh
+>> npm test
 ```
 
-Alternatively, you can deploy your own copy of the app using the web-based flow:
+## Getting Started
+After installation, create or update your **.env** file.
+```env
+PBIE_APP_ID="your_app_id"
+PBIE_WORKSPACE_ID="your_workspace_id"
+PBIE_REPORT_ID="your_report_id"
+PBIE_USERNAME="your_powerbi_user"
+PBIE_PASSWORD="your_powerbi_password"
+```
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+### Getting access token
+
+```typescript
+const { accessToken } = await getAuthToken();
+```
+
+### Getting embed token for report
+
+```typescript
+const { token } = await generateEmbedToken(reportId);
+```
+
+### Getting embed token with roles for report
+
+```typescript
+const { token } = await generateEmbedTokenWithRls(reportId, username, roles);
+```
 
 ## Issues
+[Repo Issues](https://github.com/mend3/pbie-node/issues)
+
 [Power BI Support Page](https://powerbi.microsoft.com/en-us/support/)
 
 [Power BI Ideas](https://ideas.powerbi.com)

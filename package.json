@@ -13,9 +13,7 @@
     "prepare": "npm run lint && npm test && npm run build",
     "lint": "tslint --project .",
     "build": "rm -rf dist/ && tsc",
-    "watch": "tsc --watch",
-    "test": "jasmine --reporter=jasmine-console-reporter --config=jasmine.json",
-    "clear": "rm -rf node_modules/ dist/"
+    "test": "jasmine --reporter=jasmine-console-reporter --config=jasmine.json"
   },
   "repository": {
     "type": "git",
