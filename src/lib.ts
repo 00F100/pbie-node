@@ -4,10 +4,10 @@ import config from './config';
 import { getAuthToken, getEmbedToken } from './internals';
 import {
   EmbedTokenGenerator, EmbedTokenGeneratorWithRls, PowerBiAsyncRequest,
-  PowerBiReport, PowerBiRequestCallback, PowerBiDatasetRequest, PowerBiDataset,
+  PowerBiReport, PowerBiRequestCallback, PowerBiDatasetRequest, PowerBiDataset, Options,
 } from './types';
 
-export const getReport: PowerBiAsyncRequest<PowerBiReport> = (url, options, reportId) => {
+export const getReport: PowerBiAsyncRequest<PowerBiReport> = (config: Options, url, options, reportId) => {
   const { workspaceId } = config;
 
   const promise = new Promise<PowerBiReport>((resolve, reject) => {
@@ -64,10 +64,10 @@ export const getDataset: PowerBiDatasetRequest<PowerBiDataset> = (accessToken, d
 
 };
 
-export const generateEmbedToken: EmbedTokenGenerator = async (reportId) => {
-  const { apiUrl, workspaceId } = config;
+export const generateEmbedToken: EmbedTokenGenerator = async (config: Options) => {
+  const { apiUrl, workspaceId, reportId } = config;
 
-  const { accessToken } = await getAuthToken();
+  const { accessToken } = await getAuthToken(config);
 
   const { Authorization } = buildAuthHeader(accessToken);
 
@@ -75,18 +75,18 @@ export const generateEmbedToken: EmbedTokenGenerator = async (reportId) => {
   const options = { headers, method: 'POST', body: JSON.stringify({ accessLevel: 'View' }) };
   const url = `${apiUrl}v1.0/myorg/groups/${workspaceId}/reports/${reportId}/GenerateToken`;
 
-  return getEmbedToken(url, options, reportId);
+  return getEmbedToken(config, url, options, reportId);
 };
 
-export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (reportId, username, roles) => {
+export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (config: Options) => {
 
-  const { apiUrl, workspaceId } = config;
+  const { apiUrl, workspaceId, reportId, username, roles } = config;
 
-  const { accessToken } = await getAuthToken();
+  const { accessToken } = await getAuthToken(config);
   const { Authorization } = buildAuthHeader(accessToken);
   const { url, options } = buildRequestParams(accessToken, reportId);
 
-  const report = await getReport(url, options, reportId);
+  const report = await getReport(config, url, options, reportId);
   if (report instanceof Error) throw report;
   const { id, datasetId } = report;
 
@@ -100,5 +100,5 @@ export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (repo
   const headers = { Authorization, 'Content-Type': 'application/json' };
   const embedTokenOptions = { headers, method: 'POST', body: JSON.stringify(body) };
   const embedTokenUrl = `${apiUrl}v1.0/myorg/groups/${workspaceId}/reports/${id}/GenerateToken`;
-  return getEmbedToken(embedTokenUrl, embedTokenOptions, id);
+  return getEmbedToken(config, embedTokenUrl, embedTokenOptions, id);
 };

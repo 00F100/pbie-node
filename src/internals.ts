@@ -2,10 +2,10 @@ import adal, { TokenResponse } from 'adal-node';
 import * as fs from 'fs';
 import https from 'https';
 import request from 'request';
-import config from './config';
-import { PowerBiAsyncRequest, PowerBiAuthenticationCallback, PowerBiAuthFunction, PowerBiEmbedToken } from './types';
+// import config from './config';
+import { Options, PowerBiAsyncRequest, PowerBiAuthenticationCallback, PowerBiAuthFunction, PowerBiEmbedToken } from './types';
 
-export const getAuthToken: PowerBiAuthFunction = async () => {
+export const getAuthToken: PowerBiAuthFunction = async (config: Options) => {
   const AuthenticationContext = adal.AuthenticationContext;
 
   const { authorityUrl, resourceUrl, username, password, appId } = config;
@@ -29,7 +29,7 @@ export const getAuthToken: PowerBiAuthFunction = async () => {
   return promise;
 };
 
-export const getEmbedToken: PowerBiAsyncRequest<PowerBiEmbedToken> = (url, options, reportId) => {
+export const getEmbedToken: PowerBiAsyncRequest<PowerBiEmbedToken> = (config: Options, url, options, reportId) => {
   const { workspaceId } = config;
   const promise = new Promise<PowerBiEmbedToken>((resolve, reject) => {
     request(url, options, (error, { statusCode }, body) => {

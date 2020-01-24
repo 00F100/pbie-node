@@ -3,7 +3,7 @@
   "directories": {
     "test": "test"
   },
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "NodeJS library written in typescript and designed for using PowerBI embedded reports.",
   "main": "dist/index.js",
   "private": false,
@@ -13,7 +13,7 @@
     "npm": ">=6.7.0"
   },
   "scripts": {
-    "prepare": "npm run lint && npm test && npm run build",
+    "prepare": "npm run lint && npm run build",
     "lint": "tslint --project .",
     "build": "rm -rf dist/ && tsc",
     "test": "jasmine --reporter=jasmine-console-reporter --config=jasmine.json"

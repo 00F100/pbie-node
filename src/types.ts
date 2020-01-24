@@ -10,6 +10,7 @@ export interface Options {
   reportId: string;
   username: string;
   password: string;
+  roles: string[];
 }
 
 export interface AuthorizationHeader { Authorization: string; }
@@ -102,8 +103,8 @@ export type RequestParamsBuilder = (accessToken: string, reportId: string) => Re
 export type PowerBiRequestCallback = (error: any, response: PowerBiResponse, body: string) => void;
 export type PowerBiAuthenticationCallback = AcquireTokenCallback;
 
-export type PowerBiAsyncRequest<T> = (url: string, options: CoreOptions, reportId: string) => Promise<T>;
+export type PowerBiAsyncRequest<T> = (config: Options, url: string, options: CoreOptions, reportId: string) => Promise<T>;
 export type PowerBiDatasetRequest<T> = (accessToken: string, datasetId: string) => Promise<T>;
-export type PowerBiAuthFunction = () => Promise<TokenResponse>;
-export type EmbedTokenGenerator = (reportId: string) => Promise<PowerBiEmbedToken>;
-export type EmbedTokenGeneratorWithRls = (reportId: string, username: string, roles: string[]) => Promise<PowerBiEmbedToken>;
+export type PowerBiAuthFunction = (options: Options) => Promise<TokenResponse>;
+export type EmbedTokenGenerator = (config: Options) => Promise<PowerBiEmbedToken>;
+export type EmbedTokenGeneratorWithRls = (config: Options) => Promise<PowerBiEmbedToken>;
