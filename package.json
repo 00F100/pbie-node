@@ -1,5 +1,5 @@
 {
-  "name": "@mend3/pbie-node",
+  "name": "@00f100/pbie-node",
   "directories": {
     "test": "test"
   },
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mend3/pbie-node.git"
+    "url": "git+https://github.com/00f100/pbie-node.git"
   },
   "keywords": [
     "PowerBI",
@@ -31,9 +31,9 @@
   "author": "Victor Mendonça <victor.mendp3@gmail.com> (https://github.com/mend3)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mend3/pbie-node/issues"
+    "url": "https://github.com/00f100/pbie-node/issues"
   },
-  "homepage": "https://github.com/mend3/pbie-node#readme",
+  "homepage": "https://github.com/00f100/pbie-node#readme",
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/dotenv": "^6.1.1",
