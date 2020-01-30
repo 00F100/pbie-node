@@ -34,7 +34,7 @@ export const getReport: PowerBiAsyncRequest<PowerBiReport> = (config: Options, u
   return promise;
 };
 
-export const getDataset: PowerBiDatasetRequest<PowerBiDataset> = (accessToken, datasetId) => {
+export const getDataset: PowerBiDatasetRequest<PowerBiDataset> = (config, accessToken, datasetId) => {
 
   const { apiUrl, workspaceId } = config;
 
@@ -78,24 +78,24 @@ export const generateEmbedToken: EmbedTokenGenerator = async (config: Options) =
   return getEmbedToken(config, url, options, reportId);
 };
 
-export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (config: Options) => {
+export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (term: string, config: Options) => {
 
-  const { apiUrl, workspaceId, reportId, username, roles } = config;
+  const { apiUrl, workspaceId, reportId, roles } = config;
 
   const { accessToken } = await getAuthToken(config);
   const { Authorization } = buildAuthHeader(accessToken);
-  const { url, options } = buildRequestParams(accessToken, reportId);
+  const { url, options } = buildRequestParams(config, accessToken, reportId);
 
   const report = await getReport(config, url, options, reportId);
   if (report instanceof Error) throw report;
   const { id, datasetId } = report;
 
-  const dataset = await getDataset(accessToken, datasetId);
+  const dataset = await getDataset(config, accessToken, datasetId);
   if (dataset instanceof Error) throw dataset;
 
   if (!dataset.isEffectiveIdentityRequired) throw new Error('EffectiveIdentityRequired');
 
-  const identities = [{ username, roles, datasets: [datasetId] }];
+  const identities = [{ roles, username: term, datasets: [datasetId] }];
   const body = { identities, accessLevel: 'View' };
   const headers = { Authorization, 'Content-Type': 'application/json' };
   const embedTokenOptions = { headers, method: 'POST', body: JSON.stringify(body) };

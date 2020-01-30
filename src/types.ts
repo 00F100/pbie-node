@@ -98,13 +98,13 @@ export interface PowerBiResponse extends Response {
 }
 
 export type BearerBuilder = (accessToken: string) => AuthorizationHeader;
-export type RequestParamsBuilder = (accessToken: string, reportId: string) => RequestParamOptions;
+export type RequestParamsBuilder = (config: Options, accessToken: string, reportId: string) => RequestParamOptions;
 
 export type PowerBiRequestCallback = (error: any, response: PowerBiResponse, body: string) => void;
 export type PowerBiAuthenticationCallback = AcquireTokenCallback;
 
 export type PowerBiAsyncRequest<T> = (config: Options, url: string, options: CoreOptions, reportId: string) => Promise<T>;
-export type PowerBiDatasetRequest<T> = (accessToken: string, datasetId: string) => Promise<T>;
+export type PowerBiDatasetRequest<T> = (config: Options, accessToken: string, datasetId: string) => Promise<T>;
 export type PowerBiAuthFunction = (options: Options) => Promise<TokenResponse>;
 export type EmbedTokenGenerator = (config: Options) => Promise<PowerBiEmbedToken>;
-export type EmbedTokenGeneratorWithRls = (config: Options) => Promise<PowerBiEmbedToken>;
+export type EmbedTokenGeneratorWithRls = (term: string, config: Options) => Promise<PowerBiEmbedToken>;

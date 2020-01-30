@@ -3,7 +3,7 @@ import { BearerBuilder, RequestParamsBuilder } from './types';
 
 export const buildAuthHeader: BearerBuilder = accessToken => ({ Authorization: `Bearer ${accessToken}` });
 
-export const buildRequestParams: RequestParamsBuilder = (accessToken, reportId) => {
+export const buildRequestParams: RequestParamsBuilder = (config, accessToken, reportId) => {
   const { apiUrl, workspaceId } = config;
   const { Authorization } = buildAuthHeader(accessToken);
   const headers = { Authorization };

@@ -12,7 +12,7 @@ const config: Options = {
   reportId: (process.env.PBIE_REPORT_ID as string),
   username: (process.env.PBIE_USERNAME as string),
   password: (process.env.PBIE_PASSWORD as string),
-  roles: []
+  roles: [],
 };
 
 export default config;
