@@ -4,7 +4,7 @@ import config from './config';
 import { getAuthToken, getEmbedToken } from './internals';
 import {
   EmbedTokenGenerator, EmbedTokenGeneratorWithRls, PowerBiAsyncRequest,
-  PowerBiReport, PowerBiRequestCallback, PowerBiDatasetRequest, PowerBiDataset, Options,
+  PowerBiReport, PowerBiRequestCallback, PowerBiDatasetRequest, PowerBiDataset, Options, IPowerBIFilter,
 } from './types';
 
 export const getReport: PowerBiAsyncRequest<PowerBiReport> = (config: Options, url, options, reportId) => {
@@ -78,7 +78,7 @@ export const generateEmbedToken: EmbedTokenGenerator = async (config: Options) =
   return getEmbedToken(config, url, options, reportId);
 };
 
-export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (term: string, config: Options) => {
+export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (filter: IPowerBIFilter, config: Options) => {
 
   const { apiUrl, workspaceId, reportId, roles } = config;
 
@@ -95,7 +95,10 @@ export const generateEmbedTokenWithRls: EmbedTokenGeneratorWithRls = async (term
 
   if (!dataset.isEffectiveIdentityRequired) throw new Error('EffectiveIdentityRequired');
 
-  const identities = [{ roles, username: term, datasets: [datasetId] }];
+  const applyFilter: any = {};
+  applyFilter[filter.field] = filter.term;
+
+  const identities = [{ roles: filter.role, datasets: [datasetId], ...applyFilter }];
   const body = { identities, accessLevel: 'View' };
   const headers = { Authorization, 'Content-Type': 'application/json' };
   const embedTokenOptions = { headers, method: 'POST', body: JSON.stringify(body) };

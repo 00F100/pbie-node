@@ -97,6 +97,12 @@ export interface PowerBiResponse extends Response {
   request: PowerBiRequest;
 }
 
+export interface IPowerBIFilter {
+  term: string;
+  field: string;
+  role: string[];
+}
+
 export type BearerBuilder = (accessToken: string) => AuthorizationHeader;
 export type RequestParamsBuilder = (config: Options, accessToken: string, reportId: string) => RequestParamOptions;
 
@@ -107,4 +113,4 @@ export type PowerBiAsyncRequest<T> = (config: Options, url: string, options: Cor
 export type PowerBiDatasetRequest<T> = (config: Options, accessToken: string, datasetId: string) => Promise<T>;
 export type PowerBiAuthFunction = (options: Options) => Promise<TokenResponse>;
 export type EmbedTokenGenerator = (config: Options) => Promise<PowerBiEmbedToken>;
-export type EmbedTokenGeneratorWithRls = (term: string, config: Options) => Promise<PowerBiEmbedToken>;
+export type EmbedTokenGeneratorWithRls = (filter: IPowerBIFilter, config: Options) => Promise<PowerBiEmbedToken>;

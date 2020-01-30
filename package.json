@@ -3,7 +3,7 @@
   "directories": {
     "test": "test"
   },
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "NodeJS library written in typescript and designed for using PowerBI embedded reports.",
   "main": "dist/index.js",
   "private": false,
