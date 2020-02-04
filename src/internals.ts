@@ -10,9 +10,7 @@ export const getAuthToken: PowerBiAuthFunction = async (config: Options) => {
 
   const { authorityUrl, resourceUrl, username, password, appId } = config;
 
-  const casjson = fs.readFileSync(`${__dirname}\\..\\cas.json`).toString();
-  const cas = JSON.parse(casjson);
-  https.globalAgent.options.ca = cas;
+  https.globalAgent.options.ca = config.signature;
 
   const promise = new Promise<TokenResponse>((resolve, reject) => {
 

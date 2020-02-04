@@ -11,6 +11,7 @@ export interface Options {
   username: string;
   password: string;
   roles: string[];
+  signature: any;
 }
 
 export interface AuthorizationHeader { Authorization: string; }
