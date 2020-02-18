@@ -8,7 +8,7 @@ import { Options, PowerBiAsyncRequest, PowerBiAuthenticationCallback, PowerBiAut
 export const getAuthToken: PowerBiAuthFunction = async (config: Options) => {
   const AuthenticationContext = adal.AuthenticationContext;
 
-  const { authorityUrl, resourceUrl, username, password, appId } = config;
+  const { authorityUrl, resourceUrl, appSecret, appId } = config;
 
   https.globalAgent.options.ca = config.signature;
 
@@ -21,7 +21,8 @@ export const getAuthToken: PowerBiAuthFunction = async (config: Options) => {
     };
 
     new AuthenticationContext(authorityUrl)
-      .acquireTokenWithUsernamePassword(resourceUrl, username, password, appId, authCallback);
+    .acquireTokenWithClientCredentials(resourceUrl, appId, appSecret, authCallback);
+      // .acquireTokenWithUsernamePassword(resourceUrl, username, password, appId, authCallback);
   });
 
   return promise;
@@ -33,7 +34,10 @@ export const getEmbedToken: PowerBiAsyncRequest<PowerBiEmbedToken> = (config: Op
     request(url, options, (error, { statusCode }, body) => {
       if (error) return reject(error);
 
-      if (statusCode >= 400) return reject(new Error('Invalid request'));
+      if (statusCode >= 400) {
+        const decoded = JSON.parse(body);
+        return reject(new Error(decoded.error.message));
+      }
 
       if (!body || body === '') reject(new Error(`No report with id: ${reportId} in group with id: ${workspaceId}`));
 

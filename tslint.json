@@ -9,9 +9,7 @@
     "no-increment-decrement": false,
     "variable-name": false,
     "import-name": false,
-    "max-line-length": {
-      "options": 140
-    }
+    "max-line-length": false
   },
   "rulesDirectory": []
 }

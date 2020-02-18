@@ -6,6 +6,7 @@ export interface Options {
   resourceUrl: string;
   apiUrl: string;
   appId: string;
+  appSecret: string;
   workspaceId: string;
   reportId: string;
   username: string;
